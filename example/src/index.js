@@ -1,10 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import NumericFormat, { useNumericFormat } from '../../src/numeric_format';
 import PatternFormat from '../../src/pattern_format';
 import NumberFormatBase from '../../src/number_format_base';
-import TextField from 'material-ui/TextField';
 import { cardExpiry } from '../../custom_formatters/card_expiry';
 
 const persianNumeral = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
@@ -288,7 +286,7 @@ class App extends React.Component {
 
         <div className="example">
           <h3>Custom input : Format credit card number</h3>
-          <PatternFormat customInput={TextField} format="#### #### #### ####" />
+          <PatternFormat customInput={(props) => <input {...props} />} format="#### #### #### ####" />
         </div>
 
         <div className="example">
@@ -305,13 +303,5 @@ class App extends React.Component {
   }
 }
 
-const ThemedApp = () => {
-  return (
-    <MuiThemeProvider>
-      <App />
-    </MuiThemeProvider>
-  );
-};
-
 const root = ReactDOM.createRoot(document.getElementById('app'));
-root.render(<ThemedApp />);
+root.render(<App />);
