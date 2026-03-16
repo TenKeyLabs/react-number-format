@@ -48,10 +48,13 @@
     "test-build": "vitest run",
     "test-ts": "yarn tsc --noEmit",
     "lint": "cross-env eslint src/**",
-    "build-ci": "yarn build-dist && yarn build-types"
+    "build-ci": "yarn build-dist && yarn build-types",
+    "changeset:publish": "yarn build-ci && changeset publish"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
+    "@changesets/changelog-github": "^0.5.0",
+    "@changesets/cli": "^2.26.0",
     "@babel/preset-env": "^7.6.2",
     "@babel/preset-react": "^7.0.0",
     "@cmfcmf/docusaurus-search-local": "^0.11.0",
