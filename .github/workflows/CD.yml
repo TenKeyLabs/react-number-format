@@ -35,5 +35,6 @@ jobs:
           title: "chore: version packages"
           commit: "chore: version packages"
           publish: yarn changeset:publish
+          oidcAuth: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
