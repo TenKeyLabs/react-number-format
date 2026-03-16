@@ -1,22 +1,7 @@
 import terser from '@rollup/plugin-terser';
-import fileSize from 'rollup-plugin-filesize';
-import license from 'rollup-plugin-license';
-import replace from '@rollup/plugin-replace';
 import commonjs from '@rollup/plugin-commonjs';
-import buble from '@rollup/plugin-buble';
 import resolve from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
-
-import { readFileSync } from 'fs';
-const PACKAGE = JSON.parse(readFileSync('./package.json', 'utf8'));
-const fullYear = new Date().getFullYear();
-
-const banner = `${PACKAGE.name} - ${PACKAGE.version}
-  Author : ${PACKAGE.author}
-  Copyright (c) ${fullYear !== 2016 ? '2016,' : ''} ${fullYear} to ${
-  PACKAGE.author
-}, released under the ${PACKAGE.license} license.
-  ${PACKAGE.repository.url}`;
 
 const globals = {
   react: 'React',
@@ -50,20 +35,9 @@ const defaultConfig = {
     typescript({
       target: 'es2016',
     }),
-    buble({
-      objectAssign: true,
-    }),
-    replace({
-      preventAssignment: true,
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-    }),
     resolve(),
     commonjs({
       include: /node_modules/,
-    }),
-    fileSize(),
-    license({
-      banner,
     }),
   ],
 };
