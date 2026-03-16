@@ -2,9 +2,8 @@ import React, { useState, useRef, useEffect, useMemo, StrictMode } from 'react';
 import { vi } from 'vitest';
 import { render as rtlRender, screen, renderHook, waitFor } from '@testing-library/react';
 
-import TextField from 'material-ui/TextField';
-
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+// Simple custom input component used to test the customInput prop
+const CustomInput = React.forwardRef((props, ref) => <input ref={ref} {...props} />);
 import {
   simulateKeyInput,
   simulateClickToFocus,
@@ -186,17 +185,9 @@ describe('NumberFormat as input', () => {
   });
 
   it('numeric format works with custom input component', async () => {
-    const NumericFormatWrapper = (props) => {
-      return (
-        <MuiThemeProvider>
-          <NumericFormat {...props} />
-        </MuiThemeProvider>
-      );
-    };
-
     const { input, user } = await render(
-      <NumericFormatWrapper
-        customInput={TextField}
+      <NumericFormat
+        customInput={CustomInput}
         thousandSeparator={'.'}
         decimalSeparator={','}
       />,
@@ -207,16 +198,9 @@ describe('NumberFormat as input', () => {
   });
 
   it('pattern format works with custom input component', async () => {
-    const PatternFormatWrapper = (props) => {
-      return (
-        <MuiThemeProvider>
-          <PatternFormat {...props} />
-        </MuiThemeProvider>
-      );
-    };
-
     const { input, user } = await render(
-      <PatternFormatWrapper
+      <PatternFormat
+        customInput={CustomInput}
         format={'#### #### #### ####'}
         mask="_"
         thousandSeparator={'.'}
