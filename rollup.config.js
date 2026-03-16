@@ -1,13 +1,14 @@
-import { uglify } from 'rollup-plugin-uglify';
+import terser from '@rollup/plugin-terser';
 import fileSize from 'rollup-plugin-filesize';
 import license from 'rollup-plugin-license';
-import replace from 'rollup-plugin-replace';
-import commonjs from 'rollup-plugin-commonjs';
+import replace from '@rollup/plugin-replace';
+import commonjs from '@rollup/plugin-commonjs';
 import buble from '@rollup/plugin-buble';
-import resolve from 'rollup-plugin-node-resolve';
+import resolve from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 
-import PACKAGE from './package.json';
+import { readFileSync } from 'fs';
+const PACKAGE = JSON.parse(readFileSync('./package.json', 'utf8'));
 const fullYear = new Date().getFullYear();
 
 const banner = `${PACKAGE.name} - ${PACKAGE.version}
@@ -53,6 +54,7 @@ const defaultConfig = {
       objectAssign: true,
     }),
     replace({
+      preventAssignment: true,
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
     }),
     resolve(),
@@ -75,7 +77,7 @@ const minConfig = {
     globals,
     exports: 'auto',
   },
-  plugins: [...defaultConfig.plugins, uglify()],
+  plugins: [...defaultConfig.plugins, terser()],
 };
 
 export default [defaultConfig, minConfig];
