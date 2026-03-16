@@ -12,6 +12,7 @@ Thank you for your pull request. Please provide all required information
 
 - [ ] I have run linter locally
 - [ ] I have run unit and integration tests locally
+- [ ] I have added a changeset (`npx changeset add`) if this PR should trigger a release
 
 ### Issues
 
